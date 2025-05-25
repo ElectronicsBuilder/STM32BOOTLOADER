@@ -1,0 +1,21 @@
+{
+    "configurations": [
+      {
+        "name": "STM32",
+        "includePath": [
+          "${workspaceFolder}/**"
+        ],
+        "defines": [
+          "USE_HAL_DRIVER",
+          "STM32F767xx",
+          "STM32F7xx"
+        ],
+        "compilerPath": "C:/ST/STM32CubeCLT_1.16.0/GNU-tools-for-STM32/bin/arm-none-eabi-gcc.exe",
+        "cStandard": "c11",
+        "cppStandard": "c++23",
+        "intelliSenseMode": "gcc-arm"
+      }
+    ],
+    "version": 4
+  }
+  
