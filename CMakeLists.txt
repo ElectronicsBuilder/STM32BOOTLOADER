@@ -93,14 +93,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/UserDrivers/spi_flash
     #${CMAKE_SOURCE_DIR}/UserDrivers/nvram
     ${CMAKE_SOURCE_DIR}/UserDrivers/qspi_flash
-    #${CMAKE_SOURCE_DIR}/UserDrivers/SHT4x
-    #${CMAKE_SOURCE_DIR}/UserDrivers/BMP581
-    #${CMAKE_SOURCE_DIR}/UserDrivers/BNO085
-    #${CMAKE_SOURCE_DIR}/UserDrivers/BQ27441
-    #${CMAKE_SOURCE_DIR}/UserDrivers/TPS2115
-    #${CMAKE_SOURCE_DIR}/UserDrivers/TPS2121
-    #${CMAKE_SOURCE_DIR}/UserDrivers/TXS0108
-    #${CMAKE_SOURCE_DIR}/UserDrivers/radio_receiver 
+
     ${CMAKE_SOURCE_DIR}/UserDrivers/bootloader
     ${CMAKE_SOURCE_DIR}/UserDrivers/boot_defs
     ${CMAKE_SOURCE_DIR}/UserDrivers/fuse
