@@ -17,5 +17,5 @@ uint8_t boot_crc8(const uint8_t *data, size_t len) {
         for (uint8_t j = 0; j < 8; ++j)
             crc = (crc & 0x80) ? (crc << 1) ^ 0x31 : (crc << 1);
     }
-    return crc;
+    return crc; 
 }

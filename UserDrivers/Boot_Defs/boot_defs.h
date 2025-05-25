@@ -15,7 +15,7 @@ extern "C" {
 #include "stm32f7xx_hal.h"
 #else
 #error "Unsupported STM32 family"
-#endif
+#endif 
 
 
 
@@ -23,7 +23,7 @@ extern "C" {
 #define BOOTLOADER_ADDRESS 0x08000000U
 
 
-//Boot Fuse 
+//Boot Fuse  
 // Define which fuse backend to use
 #define BOOT_FUSE_BACKEND_SPI_FLASH     1
 #define BOOT_FUSE_BACKEND_QSPI_FLASH    2
