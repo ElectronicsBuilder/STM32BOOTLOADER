@@ -28,6 +28,7 @@
         "qspi_flash.h": "c",
         "w25q128.h": "c",
         "boot_fuse.h": "c",
-        "boot_fuse_spiflash.h": "c"
+        "boot_fuse_spiflash.h": "c",
+        "boot_defs.h": "c"
     }
 }

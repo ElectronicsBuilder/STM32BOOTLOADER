@@ -35,7 +35,6 @@ extern "C" {
 extern void main_cpp(void);
 extern void check_and_jump_to_bootloader(void);
 #include "log.hpp"
-#include "boot_defs.h"
 
 /* USER CODE END Includes */
 

@@ -137,3 +137,5 @@
 624	1258	7698139572526935	STM32Bootloader.elf	bc84263f4a436aa5
 16	688	7698139736098043	CMakeFiles/STM32Bootloader.dir/UserDrivers/fuse/boot_fuse_eeprom.c.obj	4d81160f4229872a
 689	1473	7698139743851334	STM32Bootloader.elf	bc84263f4a436aa5
+18	693	7698587322665158	CMakeFiles/STM32Bootloader.dir/Core/Src/main.c.obj	51d2d2badd4ded23
+694	1483	7698587330474375	STM32Bootloader.elf	bc84263f4a436aa5
