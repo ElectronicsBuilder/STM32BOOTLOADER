@@ -1,0 +1,35 @@
+# Ignore CMake build files
+/build/
+/CMakeFiles/
+/cmake-build-*/
+
+# Ignore CubeMX artifacts
+*.launch
+*.log
+*.settings
+*.mxproject
+*.ioc
+*.project
+*.cproject
+
+# Ignore binary outputs
+*.elf
+*.bin
+*.hex
+*.map
+
+# Ignore backup files
+*~
+*.swp
+*.bak
+*.tmp
+*.user
+
+# Ignore VSCode folders
+.vscode/
+.idea/
+
+# Ignore other temp stuff
+*.DS_Store
+Thumbs.db
+
