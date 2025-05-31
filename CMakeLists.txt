@@ -61,11 +61,13 @@ file(GLOB_RECURSE PROJECT_SOURCES
     "${CMAKE_SOURCE_DIR}/Core/Src/*.c"
     "${CMAKE_SOURCE_DIR}/Core/Src/*.cpp"
     "${CMAKE_SOURCE_DIR}/src/*.cpp"
+    "${CMAKE_SOURCE_DIR}/src/*.c"
     "${CMAKE_SOURCE_DIR}/drivers_test/**/*.cpp"
     "${CMAKE_SOURCE_DIR}/drivers_test/*.cpp"
     "${CMAKE_SOURCE_DIR}/UserDrivers/**/*.cpp"
     "${CMAKE_SOURCE_DIR}/UserDrivers/**/*.c"
     "${CMAKE_SOURCE_DIR}/logs/*.cpp"
+    "${CMAKE_SOURCE_DIR}/logs/*.c"
 )
 
 message(STATUS "PROJECT_SOURCES = ${PROJECT_SOURCES}")
@@ -97,6 +99,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/UserDrivers/bootloader
     ${CMAKE_SOURCE_DIR}/UserDrivers/boot_defs
     ${CMAKE_SOURCE_DIR}/UserDrivers/fuse
+    ${CMAKE_SOURCE_DIR}/UserDrivers/boot_transport   
 
 
 )

@@ -1,9 +1,9 @@
-set(CMAKE_HOST_SYSTEM "Windows-10.0.22631")
-set(CMAKE_HOST_SYSTEM_NAME "Windows")
-set(CMAKE_HOST_SYSTEM_VERSION "10.0.22631")
-set(CMAKE_HOST_SYSTEM_PROCESSOR "AMD64")
+set(CMAKE_HOST_SYSTEM "Linux-6.1.0-31-amd64")
+set(CMAKE_HOST_SYSTEM_NAME "Linux")
+set(CMAKE_HOST_SYSTEM_VERSION "6.1.0-31-amd64")
+set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
 
-include("C:/Users/EVANGELION/STM32CubeIDE/STM32Bootloader/cmake/gcc-arm-none-eabi.cmake")
+include("/home/electronicsbuilder/Projects/STM32BOOTLOADER/cmake/gcc-arm-none-eabi.cmake")
 
 set(CMAKE_SYSTEM "Generic")
 set(CMAKE_SYSTEM_NAME "Generic")

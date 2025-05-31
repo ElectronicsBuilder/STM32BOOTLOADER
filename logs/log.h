@@ -1,5 +1,5 @@
-#ifndef __LOG_HPP
-#define __LOG_HPP
+#ifndef __LOG_H
+#define __LOG_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,4 +35,4 @@ void log_cmd(const char* format, ...);
 }
 #endif
 
-#endif /* __LOG_HPP */
+#endif /* __LOG_H */

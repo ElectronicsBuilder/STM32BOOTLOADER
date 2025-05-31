@@ -30,8 +30,33 @@ extern "C" {
 #define BOOT_FUSE_BACKEND_EEPROM        3  // future
 
 // SELECT ACTIVE DRIVER
-#define BOOT_FUSE_BACKEND_SELECTED      BOOT_FUSE_BACKEND_SPI_FLASH
+#define BOOT_FUSE_BACKEND_SELECTED      BOOT_FUSE_BACKEND_QSPI_FLASH
 
+//Boot Transport
+#define BOOT_TRANSPORT_BACKEND_UART      1
+#define BOOT_TRANSPORT_BACKEND_WIFI      2
+#define BOOT_TRANSPORT_BACKEND_ETHERNET  3
+#define BOOT_TRANSPORT_BACKEND_USB       4
+
+#define BOOT_TRANSPORT_BACKEND_SELECTED  BOOT_TRANSPORT_BACKEND_UART
+
+
+
+#if BOOT_TRANSPORT_BACKEND_SELECTED == BOOT_TRANSPORT_BACKEND_UART
+    #include "transport_uart.h"
+    #define ACTIVE_BOOT_TRANSPORT_DRIVER &boot_uart_driver
+
+#elif BOOT_TRANSPORT_BACKEND_SELECTED == BOOT_TRANSPORT_BACKEND_USB
+    #include "transport_usb.h"
+    #define ACTIVE_BOOT_TRANSPORT_DRIVER &boot_usb_driver
+
+#elif BOOT_TRANSPORT_BACKEND_SELECTED == BOOT_TRANSPORT_BACKEND_ETH
+    #include "transport_eth.h"
+    #define ACTIVE_BOOT_TRANSPORT_DRIVER &boot_eth_driver
+
+#else
+    #error "No valid BOOT_TRANSPORT_SELECTED defined"
+#endif
 
 
 // Boot Fuse Metadata Format
@@ -49,6 +74,22 @@ typedef struct __attribute__((packed)) {
 
 
 uint8_t boot_crc8(const uint8_t *data, size_t len);
+
+
+// UART Transport Mode 
+
+typedef enum {
+    UART_MODE_SIMPLE = 0,
+    UART_MODE_IRQ,
+    UART_MODE_DMA
+} boot_uart_mode_t;
+
+#define BOOT_UART_MODE_SELECTED    UART_MODE_DMA  // Set default mode here
+
+
+
+
+
 
 #ifdef __cplusplus
 }

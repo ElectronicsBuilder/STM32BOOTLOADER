@@ -1,6 +1,6 @@
 #include "qspi_flash.h"
 #include "w25q128.h"
-#include "log.hpp"  // Or replace with your own LOG macro
+#include "log.h"  // Or replace with your own LOG macro
 
 #define QSPI_TIMEOUT_DEFAULT HAL_QPSI_TIMEOUT_DEFAULT_VALUE
 
@@ -359,4 +359,16 @@ static uint8_t qspi_flash_get_status(QspiFlash* qf)
     HAL_QSPI_Command(qf->hqspi, &cmd, QSPI_TIMEOUT_DEFAULT);
     HAL_QSPI_Receive(qf->hqspi, &reg, QSPI_TIMEOUT_DEFAULT);
     return reg;
+}
+
+
+
+void HAL_QSPI_TxCpltCallback(QSPI_HandleTypeDef *hqspi)
+{
+    qspi_dma_tx_done = true; // A global or static volatile flag
+}
+
+void HAL_QSPI_RxCpltCallback(QSPI_HandleTypeDef *hqspi)
+{
+    qspi_dma_tx_done = true;
 }

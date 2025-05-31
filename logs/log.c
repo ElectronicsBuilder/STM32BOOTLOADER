@@ -1,4 +1,4 @@
-#include "log.hpp"
+#include "log.h"
 #include "main.h"
 #include <stdio.h>
 

@@ -25,7 +25,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "main_cpp_entry.h" // your C++ main
+#include "app.h" // your C++ main
 #include "boot_entry.h"
 #ifdef __cplusplus
 }
@@ -34,7 +34,7 @@ extern "C" {
 
 extern void main_cpp(void);
 extern void check_and_jump_to_bootloader(void);
-#include "log.hpp"
+#include "log.h"
 
 /* USER CODE END Includes */
 
@@ -215,7 +215,7 @@ int main(void)
   MX_USART6_UART_Init();
   MX_SPI3_Init();
   /* USER CODE BEGIN 2 */
-  main_cpp(); // jump to C++ app
+  bootloader_app(); // jump to C++ app
   while(1)
   {
     

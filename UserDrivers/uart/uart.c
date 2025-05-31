@@ -1,7 +1,7 @@
 // uart.cpp
-#include "uart.hpp"
+#include "uart.h"
 //#include "bootloader.h"
-#include "log.hpp"
+#include "log.h"
 #include <string.h>
 #include "stm32f7xx_hal.h"
 

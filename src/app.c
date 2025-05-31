@@ -1,13 +1,13 @@
 
-#include "main_cpp_entry.h"
+#include "app.h"
 #include "cmsis_os.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "stm32f767xx.h"
 #include "main.h"
 
-#include "log.hpp"
-#include "uart.hpp"
+#include "log.h"
+#include "uart.h"
 #include "qspi_flash.h"
 
 
@@ -47,19 +47,14 @@ extern bool PeripheralsTestComplete;
 
 
 
-// extern "C" wrapper for main_cpp
-void main_cpp(void)
+
+void bootloader_app(void)
 {
-    LOG_INFO("🌟 Aidley Controller Bootloader Started!");
+    LOG_INFO("⚙️ Aidley Controller Bootloader Started!");
 
  
 
 //    HAL_Delay(100);
-
-
-
- 
-
 
     osKernelInitialize();
 
@@ -112,15 +107,15 @@ void UART_Task(void *argument)
 
 
 
-extern "C" void HAL_QSPI_TxCpltCallback(QSPI_HandleTypeDef *hqspi)
-{
-    qspi_dma_tx_done = true; // A global or static volatile flag
-}
+// void HAL_QSPI_TxCpltCallback(QSPI_HandleTypeDef *hqspi)
+// {
+//     qspi_dma_tx_done = true; // A global or static volatile flag
+// }
 
-extern "C" void HAL_QSPI_RxCpltCallback(QSPI_HandleTypeDef *hqspi)
-{
-    qspi_dma_tx_done = true;
-}
+// void HAL_QSPI_RxCpltCallback(QSPI_HandleTypeDef *hqspi)
+// {
+//     qspi_dma_tx_done = true;
+// }
 
 
 
