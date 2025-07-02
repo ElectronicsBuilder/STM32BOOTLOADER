@@ -31,7 +31,7 @@ extern uint16_t frameBuf[(170 * 320 * 2 + 3) / 4 ] ;
 #include <string.h>
 #include <touchgfx/hal/OSWrappers.hpp>
 #include "LCDManager.h"
-#include "ST7789.h"
+#include "st7789.h"
 
 
 using namespace touchgfx;
