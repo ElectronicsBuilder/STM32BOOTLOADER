@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.22)
 project(stm32cubemx)
 add_library(stm32cubemx INTERFACE)
 
-# Enable CMake support for ASM and C languages
-enable_language(C ASM)
+# Enable CMake support for ASM, C and C++ languages
+enable_language(C CXX ASM)
 
 target_compile_definitions(stm32cubemx INTERFACE 
 	USE_HAL_DRIVER 
@@ -15,6 +15,9 @@ target_compile_definitions(stm32cubemx INTERFACE
 
 target_include_directories(stm32cubemx INTERFACE
     ../../Core/Inc
+    ../../TouchGFX/App
+    ../../TouchGFX/target/generated
+    ../../TouchGFX/target
     ../../Drivers/STM32F7xx_HAL_Driver/Inc
     ../../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy
     ../../Middlewares/Third_Party/FreeRTOS/Source/include
@@ -30,6 +33,14 @@ target_sources(stm32cubemx INTERFACE
     ../../Core/Src/stm32f7xx_it.c
     ../../Core/Src/stm32f7xx_hal_msp.c
     ../../Core/Src/stm32f7xx_hal_timebase_tim.c
+    ../../TouchGFX/target/TouchGFXHAL.cpp
+    ../../TouchGFX/target/STM32TouchController.cpp
+    ../../TouchGFX/target/TouchGFXGPIO.cpp
+    ../../TouchGFX/target/generated/TouchGFXConfiguration.cpp
+    ../../TouchGFX/target/generated/TouchGFXGeneratedHAL.cpp
+    ../../TouchGFX/target/generated/STM32DMA.cpp
+    ../../TouchGFX/target/generated/OSWrappers.cpp
+    ../../TouchGFX/App/app_touchgfx.c
     ../../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim.c
     ../../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim_ex.c
     ../../Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc.c
@@ -84,4 +95,7 @@ if(CMAKE_C_STANDARD LESS 11)
     message(ERROR "Generated code requires C11 or higher")
 endif()
 
-
+# Validate that STM32CubeMX code is compatible with C++ standard
+if(CMAKE_CXX_STANDARD LESS 11)
+    message(ERROR "Generated code requires C++11 or higher")
+endif()

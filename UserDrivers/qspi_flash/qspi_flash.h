@@ -38,12 +38,17 @@ void qspi_flash_write_quad(QspiFlash* qf, uint32_t addr, const uint8_t* data, si
 bool qspi_flash_write_quad_dma(QspiFlash* qf, uint32_t addr, const uint8_t* data, size_t size);
 bool qspi_flash_read_quad_dma(QspiFlash* qf, uint32_t addr, uint8_t* buf, size_t size);
 bool qspi_flash_wait_dma_complete(uint32_t timeout_ms);
-void qspi_flash_erase_sector(QspiFlash* qf, uint32_t addr);
+bool qspi_flash_erase_sector(QspiFlash* qf, uint32_t addr);
 void qspi_flash_erase_chip(QspiFlash* qf);
 void qspi_flash_set_quad_enable(QspiFlash* qf);
 void qspi_flash_enable_mmap(QspiFlash* qf);
 void qspi_flash_enable_quad_mmap(QspiFlash* qf);
 void qspi_flash_enable_dual_mmap(QspiFlash* qf);
+bool qspi_flash_disable_mmap(QspiFlash *qf);
 QFlashDeviceInfo qspi_flash_get_info(void);
+
+bool qspi_flash_auto_poll_ready(QspiFlash* qf, uint32_t timeout);
+bool qspi_flash_write_quad_dma_split(QspiFlash* qf, uint32_t addr, const uint8_t* data, size_t size);
+bool qspi_flash_write_enable(QspiFlash* qf);
 
 #endif

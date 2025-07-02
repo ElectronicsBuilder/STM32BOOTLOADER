@@ -2,7 +2,7 @@
 #include "boot_defs.h"
 #include "boot_entry.h"
 #include "main.h"
-
+#include "log.h"
 
 
 
@@ -36,7 +36,9 @@ pFunction Jump_To_Application;
 void check_and_jump_to_bootloader() {
     
    fuse_mem_deviceInit(ACTIVE_DRIVER);
-    fuse_set();
+   
+  // fuse_set();
+   // fuse_clear();
     
     uint8_t fuse_status = fuse_read();
 
@@ -70,3 +72,6 @@ void check_and_jump_to_bootloader() {
 
         
 }
+
+
+

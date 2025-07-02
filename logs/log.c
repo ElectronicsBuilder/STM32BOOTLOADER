@@ -38,6 +38,7 @@ void log_info(const char* format, ...)
 {
     if (current_log_level <= LOG_INFO)
     {
+        HAL_GPIO_TogglePin(LED_ACTY_GPIO_Port, LED_ACTY_Pin);
         va_list args;
         va_start(args, format);
         log_output("\033[32m", "INFO ", format, args);

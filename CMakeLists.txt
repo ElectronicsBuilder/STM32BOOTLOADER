@@ -68,6 +68,18 @@ file(GLOB_RECURSE PROJECT_SOURCES
     "${CMAKE_SOURCE_DIR}/UserDrivers/**/*.c"
     "${CMAKE_SOURCE_DIR}/logs/*.cpp"
     "${CMAKE_SOURCE_DIR}/logs/*.c"
+
+
+    "${CMAKE_SOURCE_DIR}/TouchGFX/generated/fonts/src/*.cpp"
+    "${CMAKE_SOURCE_DIR}/TouchGFX/generated/gui_generated/src/**/*.cpp"
+    "${CMAKE_SOURCE_DIR}/TouchGFX/generated/images/src/*.cpp"
+    "${CMAKE_SOURCE_DIR}/TouchGFX/generated/texts/src/*.cpp"
+    "${CMAKE_SOURCE_DIR}/TouchGFX/gui/src/**/*.cpp"
+    "${CMAKE_SOURCE_DIR}/TouchGFX/target/*.cpp"
+    "${CMAKE_SOURCE_DIR}/TouchGFX/target/*.c"
+
+
+
 )
 
 message(STATUS "PROJECT_SOURCES = ${PROJECT_SOURCES}")
@@ -100,6 +112,29 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/UserDrivers/boot_defs
     ${CMAKE_SOURCE_DIR}/UserDrivers/fuse
     ${CMAKE_SOURCE_DIR}/UserDrivers/boot_transport   
+    ${CMAKE_SOURCE_DIR}/UserDrivers/boot_staging
+    ${CMAKE_SOURCE_DIR}/UserDrivers/boot_commit
+    ${CMAKE_SOURCE_DIR}/UserDrivers/extmem_writer
+    ${CMAKE_SOURCE_DIR}/UserDrivers/display
+
+    
+    ${CMAKE_SOURCE_DIR}/TouchGFX/gui/include
+    ${CMAKE_SOURCE_DIR}/TouchGFX/App
+    ${CMAKE_SOURCE_DIR}/TouchGFX/target
+    ${CMAKE_SOURCE_DIR}/TouchGFX/target/generated
+
+
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/touchgfx/framework/include
+    ${CMAKE_SOURCE_DIR}/TouchGFX/generated/fonts/include
+    ${CMAKE_SOURCE_DIR}/TouchGFX/generated/gui_generated/include
+    ${CMAKE_SOURCE_DIR}/TouchGFX/generated/images/include
+    ${CMAKE_SOURCE_DIR}/TouchGFX/generated/texts/include
+    ${CMAKE_SOURCE_DIR}/TouchGFX/generated/videos/include
+
+    ${CMAKE_SOURCE_DIR}/TouchGFX/gui/include
+    ${CMAKE_SOURCE_DIR}/TouchGFX/gui/include/gui/common 
+    ${CMAKE_SOURCE_DIR}/TouchGFX/gui/include/gui/model
+    ${CMAKE_SOURCE_DIR}/TouchGFX/gui/include/gui/screen_screen
 
 
 )
@@ -127,6 +162,27 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
 
     # Add user defined libraries
+    ${CMAKE_SOURCE_DIR}/Middlewares/ST/touchgfx/lib/core/cortex_m7/gcc/libtouchgfx-float-abi-hard.a
 )
 
 target_link_options(STM32Bootloader PRIVATE -u _printf_float)
+
+
+# === Post-build ELF to BIN conversion ===
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_OBJCOPY} -O binary
+            --only-section=FontFlashSection
+            --only-section=TextFlashSection
+            --only-section=ExtFlashSection
+            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.elf
+            ${CMAKE_CURRENT_BINARY_DIR}/ExternalFlash.bin
+
+    COMMAND ${CMAKE_OBJCOPY} -O binary
+            --remove-section=ExtFlashSection
+            --remove-section=FontFlashSection
+            --remove-section=TextFlashSection
+            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.elf
+            ${CMAKE_CURRENT_BINARY_DIR}/STM32BOOTLOADER.bin
+
+    COMMENT "Generating InternalFlash.bin and ExternalFlash.bin from ELF"
+)

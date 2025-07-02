@@ -12,7 +12,7 @@ extern "C" {
 
 
 
-extern const BootTransportDriver boot_uart_driver;
+extern const BootTransportDriver uart_transport_driver;
 
 #ifdef __cplusplus
 }

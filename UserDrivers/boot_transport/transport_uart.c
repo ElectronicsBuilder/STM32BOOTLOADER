@@ -1,34 +1,62 @@
 #include "transport_uart.h"
-#include "uart.h"        // Your existing mode and ISR logic
+#include "uart.h"
 #include "boot_defs.h"
+#include "log_input.h"
+#include "command_parser.h"
+#include "binary_loader.h"
 #include "stm32f7xx_hal.h"
 #include <string.h>
 
-// Configurable handle
 extern UART_HandleTypeDef huart1;
+
 
 static boot_uart_mode_t uart_mode = BOOT_UART_MODE_SELECTED;
 
-static void uart_transport_init(void) {
-    uart_rx_mode = UART_MODE_BOOTLOADER_RX;
+uint8_t chunk_buf[BOOT_BINARY_CHUNK_SIZE];
+static size_t chunk_pos = 0;
 
-    switch (uart_mode) {
-        case UART_MODE_SIMPLE:
-            // No-op, HAL handles on demand
-            break;
-        case UART_MODE_IRQ:
-        case UART_MODE_DMA:
-            uart_init_rx();  // Your ISR-based buffer start
-            break;
-    }
+static void uart_transport_init(void) {
+    uart_set_transport_mode(uart_mode);
+    uart_set_mode(UART_MODE_BOOTLOADER_RX);//UART_MODE_BOOTLOADER_RX
 }
 
 static bool uart_transport_poll(void) {
-    return uart_data_available();  // Your ring buffer status check
+    uint8_t byte;
+
+    while (uart_read_buffer(&byte, 1) == 1) {
+        switch (uart_rx_mode) {
+            case UART_MODE_LOG_INPUT:
+                uart_handle_log_input(byte);
+                break;
+
+            case UART_MODE_BOOTLOADER_RX:
+                process_packet_byte(byte);
+                
+                break;
+
+            case UART_MODE_BOOTLOADER_DATA:
+                chunk_buf[chunk_pos++] = byte;
+                if (chunk_pos == BOOT_BINARY_CHUNK_SIZE) {
+                    process_binary_chunk(chunk_buf, chunk_pos);
+                    chunk_pos = 0;
+                }
+                break;
+
+            case UART_MODE_BOOTLOADER_EXT_MEM:
+                chunk_buf[chunk_pos++] = byte;
+                if (chunk_pos == BOOT_EXT_MEM_CHUNK_SIZE) {
+                    process_external_memory_chunk(chunk_buf, chunk_pos);
+                    chunk_pos = 0;
+                }
+                break;
+        }
+    }
+
+    return true;
 }
 
 static int uart_transport_read(uint8_t *buf, size_t len) {
-    return uart_read_buffer(buf, len);  // Pulls from ring buffer or blocking
+    return uart_read_buffer(buf, len);
 }
 
 static int uart_transport_write(const uint8_t *buf, size_t len) {
@@ -36,10 +64,10 @@ static int uart_transport_write(const uint8_t *buf, size_t len) {
 }
 
 static void uart_transport_flush(void) {
-    // Placeholder for future TX flush or DMA sync
+    // no-op for now
 }
 
-const BootTransportDriver boot_uart_driver = {
+const BootTransportDriver uart_transport_driver = {
     .init  = uart_transport_init,
     .poll  = uart_transport_poll,
     .read  = uart_transport_read,

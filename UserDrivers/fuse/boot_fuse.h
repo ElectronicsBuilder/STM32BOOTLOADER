@@ -21,13 +21,13 @@ bool fuse_set(void);
 bool fuse_clear(void);
 
 
-#define BOOT_FUSE_SET_BYTE1     0x55
-#define BOOT_FUSE_SET_BYTE2     0xAA
-#define BOOT_FUSE_SET_BYTE3     0x5A
+#define BOOT_FUSE_SET_BYTE1     0x42
+#define BOOT_FUSE_SET_BYTE2     0x54
+#define BOOT_FUSE_SET_BYTE3     0x4C
 
-#define BOOT_FUSE_CLEAR_BYTE1   0xFF
-#define BOOT_FUSE_CLEAR_BYTE2   0xFF
-#define BOOT_FUSE_CLEAR_BYTE3   0xFF
+#define BOOT_FUSE_CLEAR_BYTE1   0x43
+#define BOOT_FUSE_CLEAR_BYTE2   0x4C
+#define BOOT_FUSE_CLEAR_BYTE3   0x52
 
 #define BOOT_FUSE_SET        1
 #define BOOT_FUSE_CLEAR      0

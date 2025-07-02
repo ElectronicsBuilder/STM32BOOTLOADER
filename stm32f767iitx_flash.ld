@@ -63,10 +63,13 @@ MEMORY
 {
   RAM             (xrw) : ORIGIN = 0x20000000, LENGTH = 512K
 
-  FLASH           (rx)  : ORIGIN = 0x8000000, LENGTH = (512K)
+  FLASH           (rx)  : ORIGIN = 0x08000000, LENGTH = 512K
 
-  QUADSPI_FUSE    (r)   : ORIGIN = 0x90FFF000, LENGTH = 4K       /* Boot fuse region */
-  QUADSPI_STAGING (r)   : ORIGIN = 0x90000000 + 0xF00000, LENGTH = (1024K - 4K)  /* 1MB - 4KB */
+  QUADSPI_GUI       (r) : ORIGIN = 0x90000000, LENGTH = 12M
+  QUADSPI_USERDATA  (r) : ORIGIN = 0x90C00000, LENGTH = 1M
+  QUADSPI_STAGING   (r) : ORIGIN = 0x90D00000, LENGTH = 2M
+  QUADSPI_METADATA  (r) : ORIGIN = 0x90F00000, LENGTH = 0xFC00  /* (1M - 4K) */
+  QUADSPI_FUSE      (r) : ORIGIN = 0x90FFF000, LENGTH = 4K
 }
 
 /* Define output sections */

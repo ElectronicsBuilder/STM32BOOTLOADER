@@ -7,7 +7,7 @@
 #define FUSE_QSPI_FLASH_ADDR  0x00FFF000U  // Top 4KB of 16MB QSPI
 
 extern QSPI_HandleTypeDef hqspi;
-static QspiFlash qspiFlash;
+ QspiFlash qspiFlash;
 
 
 
@@ -54,6 +54,8 @@ static bool qspi_set(void)
         .len = BOOT_FUSE_DATA_LEN,
     };
 
+    qspi_flash_disable_mmap(&qspiFlash);
+
     memcpy(meta.fuse_data, boot_fuse_expected, BOOT_FUSE_SIZE);
     meta.crc8 = boot_crc8((uint8_t *)&meta, offsetof(boot_fuse_metadata_t, crc8));
 
@@ -74,6 +76,8 @@ static bool qspi_clear(void)
         .len = BOOT_FUSE_DATA_LEN,
     };
 
+    qspi_flash_disable_mmap(&qspiFlash);
+
     memcpy(meta.fuse_data, boot_fuse_cleared, BOOT_FUSE_SIZE);
     meta.crc8 = boot_crc8((uint8_t *)&meta, offsetof(boot_fuse_metadata_t, crc8));
 
@@ -85,9 +89,6 @@ static bool qspi_clear(void)
 
     return memcmp(&verify, &meta, sizeof(meta)) == 0;
 }
-
-
-
 
 
 

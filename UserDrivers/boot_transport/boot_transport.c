@@ -1,9 +1,10 @@
 #include "boot_transport.h"
 #include "boot_defs.h"
+#include "log.h"
 
 #if BOOT_TRANSPORT_BACKEND_SELECTED == BOOT_TRANSPORT_BACKEND_UART
 #include "transport_uart.h"
-static const BootTransportDriver* active_driver = &boot_uart_driver;
+static const BootTransportDriver* active_driver = &uart_transport_driver;
 
 #elif BOOT_TRANSPORT_BACKEND_SELECTED == BOOT_TRANSPORT_BACKEND_WIFI
 // #include "transport_wifi.h"
@@ -22,6 +23,18 @@ static const BootTransportDriver* active_driver = &boot_uart_driver;
 #endif
 
 bool boot_transport_init(void) {
+    #if BOOT_TRANSPORT_BACKEND_SELECTED == BOOT_TRANSPORT_BACKEND_UART
+        LOG_INFO("[Transport] UART backend selected");
+    #elif BOOT_TRANSPORT_BACKEND_SELECTED == BOOT_TRANSPORT_BACKEND_WIFI
+        LOG_INFO("[Transport] Wi-Fi backend selected");
+    #elif BOOT_TRANSPORT_BACKEND_SELECTED == BOOT_TRANSPORT_BACKEND_ETHERNET
+        LOG_INFO("[Transport] Ethernet backend selected");
+    #elif BOOT_TRANSPORT_BACKEND_SELECTED == BOOT_TRANSPORT_BACKEND_USB
+        LOG_INFO("[Transport] USB backend selected");
+    #else
+        LOG_WARN("[Transport] Unknown transport backend");
+    #endif
+
     if (active_driver && active_driver->init) {
         active_driver->init();
         return true;

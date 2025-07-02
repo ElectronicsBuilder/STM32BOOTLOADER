@@ -9,9 +9,9 @@
 
 extern SPI_HandleTypeDef hspi1;
 
-#define FUSE_SPI_FLASH_ADDR  0x0000F000  // ← Localized here
+#define FUSE_SPI_FLASH_ADDR  0x00FFF000U    // ← Localized here
 
-static SpiFlash spiFlash;
+ SpiFlash spiFlash;
 
 static const uint8_t boot_fuse_expected[BOOT_FUSE_SIZE] = {
     BOOT_FUSE_SET_BYTE1,
