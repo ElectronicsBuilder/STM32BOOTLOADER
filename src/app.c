@@ -19,7 +19,7 @@
 #include "boot_transport.h"
 #include "boot_staging.h"
 #include "bootloader.h"
-#include "ST7789.h"
+#include "st7789.h"
 
 #include "app_touchgfx.h"
 
