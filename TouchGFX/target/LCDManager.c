@@ -1,6 +1,6 @@
 
 #include "LCDManager.h"
-#include <ST7789.h>
+#include "st7789.h"
 
 
 extern void LCDManager_TransferComplete();
